@@ -1,0 +1,34 @@
+{
+  "name": "embla",
+  "version": "1.0.0",
+  "description": "metaframework",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "eslint": "^5.10.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.1",
+    "install": "^0.12.2",
+    "npm": "^6.5.0",
+    "rollup": "^0.67.4",
+    "rollup-plugin-server": "^0.7.0"
+  },
+  "scripts": {
+    "start": "",
+    "build": "cross-env NODE_ENV=development rollup -c ./build/rollup.config.js --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mitkaaa/embla.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mitkaaa/embla/issues"
+  },
+  "homepage": "https://github.com/mitkaaa/embla#readme"
+}
