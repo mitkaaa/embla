@@ -1,7 +1,5 @@
+const basisConfig = require('./basis');
+
 module.exports = {
-  input: 'src/index.js',
-  output: {
-    file: 'dist/index.js',
-    format: 'umd',
-  },
+  ...basisConfig,
 };

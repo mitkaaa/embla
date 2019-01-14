@@ -5,6 +5,8 @@
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
+    "babel-jest": "^23.6.0",
+    "babel-preset-env": "^1.7.0",
     "cross-env": "^5.2.0",
     "eslint": "^5.10.0",
     "eslint-config-airbnb": "^17.1.0",
@@ -12,14 +14,16 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
     "install": "^0.12.2",
+    "jest": "^23.6.0",
     "npm": "^6.5.0",
     "rollup": "^0.67.4",
     "rollup-plugin-server": "^0.7.0"
   },
   "scripts": {
-    "start": "",
-    "build": "cross-env NODE_ENV=development rollup -c ./build/rollup.config.js --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "cross-env NODE_ENV=development rollup -c ./build/rollup.config.js --watch",
+    "build": "cross-env NODE_ENV=production rollup -c ./build/rollup.config.js",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "repository": {
     "type": "git",

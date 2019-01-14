@@ -1,0 +1,10 @@
+{
+  "presets": [["env", { "modules": false }]],
+  "env": {
+    "test": {
+      "retainLines": true,
+      "sourceMaps": "inline",
+      "presets": [["env"]],
+    },
+  },
+}
