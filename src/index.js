@@ -12,40 +12,37 @@ const createStateManager = lastState => cb => (state) => {
   return cb(state);
 };
 
-const createChilds = (childs = {}) => ({
+const createChilds = (children = {}) => ({
   add: (name, value) => {
-    childs[name] = value;
+    children[name] = value;
   },
-  map: cb => Object.keys(childs).reduce((memo, key) => {
-    memo[key] = cb(childs[key], key);
+  map: cb => Object.keys(children).reduce((memo, key) => {
+    memo[key] = cb(children[key], key);
     return memo;
   }, {}),
-  delete: (key) => {
-    delete childs[key];
-  },
   clear: () => {
-    childs = {};
+    children = {};
   },
-  update: (newChilds = {}) => {
-    childs = newChilds;
+  update: (newChildren = {}) => {
+    children = newChildren;
   },
 });
 
-const createNext = childs => (state, forceUnmount = false) => {
-  const listShowChilds = [];
-  const newChild = childs.map(([child, options = { show: false }]) => {
+const createNext = children => (state, forceUnmount = false) => {
+  const listShowChildren = [];
+  const newChild = children.map(([child, options = { show: false, disable: false }]) => {
     const { manifest, extraArgument } = child;
 
     if (forceUnmount) {
       options.show = !forceUnmount;
     }
 
-    if (child.isShow(state) && !options.show) {
-      listShowChilds.push(child);
+    if (!options.disable && child.isShow(state) && !options.show) {
+      listShowChildren.push(child);
       return [child, { show: true }];
     }
 
-    if (!child.isShow(state) && options.show) {
+    if (!options.disable && !child.isShow(state) && options.show) {
       manifest.unmount(state, extraArgument);
       return [child, { show: false }];
     }
@@ -53,7 +50,7 @@ const createNext = childs => (state, forceUnmount = false) => {
     return [child, { show: options.show }];
   });
 
-  listShowChilds.forEach((child) => {
+  listShowChildren.forEach((child) => {
     const { manifest, extraArgument } = child;
     compose(
       manifest.mount,
@@ -62,29 +59,28 @@ const createNext = childs => (state, forceUnmount = false) => {
     )(state, extraArgument);
   });
 
-  childs.update(newChild);
+  children.update(newChild);
   return newChild;
 };
 
 export default (observer) => {
-  const childs = createChilds();
+  const children = createChilds();
 
   const next = compose(
     createStateManager(),
     debounce,
     createNext,
-  )(childs);
+  )(children);
 
   const observerResult = observer(next);
 
   const embla = (cb = () => {}) => {
     cb(observerResult);
     next(void 0, true);
-    childs.clear();
+    children.clear();
   };
 
-  embla.child = (name, manifest, isShow, extraArgument) => next(void childs.add(name, [{ manifest, isShow, extraArgument }]));
-  embla.removeChild = childs.delete;
+  embla.child = (name, manifest, isShow, extraArgument) => next(void children.add(name, [{ manifest, isShow, extraArgument }]));
 
   return embla;
 };
