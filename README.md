@@ -16,8 +16,8 @@ Arguments:
 - next (Function) - Function call when you need to update the state of children
 
 ```js
-    const embla = createEmble((next)=>{
-        setTimeout(()=>next(1000), 1000)
+    const embla = createEmble((next) => {
+        setTimeout(() => next(1000), 1000)
     })
 ```
 
@@ -33,7 +33,8 @@ Arguments:
 
 ```js
     embla.child(
-        'home', {
+        'home',
+        {
             mount: () => {},
             unmount: () => {},
             default: () => {}
