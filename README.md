@@ -26,14 +26,12 @@ Arguments:
 `child (Function)` - Adds a child who listens to the observer change.
 
 Arguments: 
-- name (String) - Child name
 - manifest (Object) - TODO:
 - isShow (Function) - Returns a boolean value for mounting or unmounting a child
 - extraArgument - Optional extras
 
 ```js
     embla.child(
-        'home',
         {
             mount: () => {},
             unmount: () => {},
@@ -43,3 +41,9 @@ Arguments:
         { staticValue: 'foo' }
     )
 ```
+
+
+## Thanks
+- [Micro Frontends](https://micro-frontends.org/)
+- [Micro frontends — a microservice approach to front-end web development](https://medium.com/@tomsoderlund/micro-frontends-a-microservice-approach-to-front-end-web-development-f325ebdadc16)
+- [single-spa](https://single-spa.js.org/)

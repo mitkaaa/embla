@@ -18,7 +18,6 @@ afterEach(() => {
 
 test('Simple', (done) => {
   embla.child(
-    'home_app',
     {
       default: (type) => {
         /* #1 */
@@ -41,18 +40,19 @@ test('Simple', (done) => {
     type => type === 'home',
   );
   embla.child(
-    'about_app',
     {
       default: (type) => {
         /* #4 */
         expect(type).toBe('about');
       },
-      mount: () => {
+      mount: (transferredElement) => {
         /* #5 */
+        expect(transferredElement).toBe(undefined);
         done();
       },
-      unmount: () => {
+      unmount: (type) => {
         /* #6 */
+        expect(type).toBe('about');
       },
     },
     type => type === 'about',

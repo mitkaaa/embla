@@ -7,7 +7,7 @@ const getHashLocation = (hash = '') => {
   return void 0;
 };
 const embla = window.embla((next) => {
-  next(getHashLocation(window.location.hash));
+  next(getHashLocation(window.location.hash) || 'home');
   window.addEventListener('popstate', () => next(getHashLocation(window.location.hash)));
 });
 
@@ -24,7 +24,6 @@ const unmount = mElement => () => clearNode(mElement);
 // UTILS END
 
 embla.child(
-  'about',
   {
     mount: mount(mountingElement),
     unmount: unmount(mountingElement),
@@ -38,7 +37,6 @@ embla.child(
 );
 
 embla.child(
-  'menu',
   {
     mount: mount(mountingMenuElement),
     unmount: unmount(mountingMenuElement),
@@ -52,7 +50,6 @@ embla.child(
 );
 
 embla.child(
-  'home',
   {
     mount: mount(mountingElement),
     unmount: unmount(mountingElement),

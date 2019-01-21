@@ -12,37 +12,30 @@ const createStateManager = lastState => cb => (state) => {
   return cb(state);
 };
 
-const createChilds = (children = {}) => ({
-  add: (name, value) => {
-    children[name] = value;
+const createChilds = (children = []) => ({
+  add: (value) => {
+    children = [...children, value];
   },
-  map: cb => Object.keys(children).reduce((memo, key) => {
-    memo[key] = cb(children[key], key);
-    return memo;
-  }, {}),
+  map: cb => children.map(cb),
   clear: () => {
-    children = {};
+    children = [];
   },
-  update: (newChildren = {}) => {
+  update: (newChildren = []) => {
     children = newChildren;
   },
 });
 
-const createNext = children => (state, forceUnmount = false) => {
+const createNext = children => (state) => {
   const listShowChildren = [];
-  const newChild = children.map(([child, options = { show: false, disable: false }]) => {
+  const newChild = children.map(([child, options = { show: false }]) => {
     const { manifest, extraArgument } = child;
 
-    if (forceUnmount) {
-      options.show = !forceUnmount;
-    }
-
-    if (!options.disable && child.isShow(state) && !options.show) {
+    if (child.isShow(state) && !options.show) {
       listShowChildren.push(child);
       return [child, { show: true }];
     }
 
-    if (!options.disable && !child.isShow(state) && options.show) {
+    if (!child.isShow(state) && options.show) {
       manifest.unmount(state, extraArgument);
       return [child, { show: false }];
     }
@@ -76,11 +69,10 @@ export default (observer) => {
 
   const embla = (cb = () => {}) => {
     cb(observerResult);
-    next(void 0, true);
     children.clear();
   };
 
-  embla.child = (name, manifest, isShow, extraArgument) => next(void children.add(name, [{ manifest, isShow, extraArgument }]));
+  embla.child = (manifest, isShow, extraArgument) => next(void children.add([{ manifest, isShow, extraArgument }]));
 
   return embla;
 };
