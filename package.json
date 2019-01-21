@@ -2,7 +2,7 @@
   "name": "embla",
   "version": "1.0.0",
   "description": "metaframework",
-  "main": "index.js",
+  "main": "dist/index.js",
   "dependencies": {},
   "devDependencies": {
     "babel-jest": "^23.6.0",
