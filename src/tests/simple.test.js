@@ -16,7 +16,7 @@ afterEach(() => {
   embla();
 });
 
-test('Simple', (done) => {
+fit('Simple', (done) => {
   embla.child(
     {
       default: (type) => {
@@ -40,7 +40,7 @@ test('Simple', (done) => {
     type => type === 'home',
   );
   embla.child(
-    {
+    () => ({
       default: (type) => {
         /* #4 */
         expect(type).toBe('about');
@@ -54,7 +54,7 @@ test('Simple', (done) => {
         /* #6 */
         expect(type).toBe('about');
       },
-    },
+    }),
     type => type === 'about',
   );
 });

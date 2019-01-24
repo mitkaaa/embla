@@ -26,7 +26,7 @@ Arguments:
 `child (Function)` - Adds a child who listens to the observer change.
 
 Arguments: 
-- manifest (Object) - TODO:
+- manifest (Object|Function) - TODO:
 - isShow (Function) - Returns a boolean value for mounting or unmounting a child
 - extraArgument - Optional extras
 

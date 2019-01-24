@@ -29,42 +29,102 @@
     update: (newChildren = []) => {
       children = newChildren;
     },
+    get: key => children[key],
+    set: (key, value) => {
+      children[key] = value;
+    },
   });
 
-  const createNext = children => (state, forceUnmount = false) => {
-    const listShowChildren = [];
-    const newChild = children.map(([child, options = { show: false, disable: false }]) => {
-      const { manifest, extraArgument } = child;
+  const mount = state => children => children.map(([child, options]) => {
+    const { manifest, extraArgument } = child;
 
-      if (forceUnmount) {
-        options.show = !forceUnmount;
-      }
-
-      if (!options.disable && child.isShow(state) && !options.show) {
-        listShowChildren.push(child);
-        return [child, { show: true }];
-      }
-
-      if (!options.disable && !child.isShow(state) && options.show) {
-        manifest.unmount(state, extraArgument);
-        return [child, { show: false }];
-      }
-
-      return [child, { show: options.show }];
-    });
-
-    listShowChildren.forEach((child) => {
-      const { manifest, extraArgument } = child;
+    if (options.mount) {
       compose(
         manifest.mount,
-        // memoization,
         manifest.default,
       )(state, extraArgument);
-    });
+      return [
+        child,
+        {
+          ...options,
+          mount: false,
+        },
+      ];
+    }
 
-    children.update(newChild);
-    return newChild;
-  };
+    return [child, options];
+  });
+
+  const unmount = state => children => children.map(([child, options]) => {
+    const { manifest, extraArgument } = child;
+
+    if (options.unmount) {
+      manifest.unmount(state, extraArgument);
+      return [
+        child,
+        {
+          ...options,
+          unmount: false,
+        },
+      ];
+    }
+
+    return [child, options];
+  });
+
+  const prepareChildren = (next, state) => children => children.map(
+    (
+      [
+        child,
+        options = {
+          show: false,
+          mount: false,
+          unmount: false,
+        },
+      ],
+      key,
+    ) => {
+      if (typeof child.manifest === 'function') {
+        child.manifest = child.manifest(
+          child.extraArgument,
+        );
+        if (typeof child.manifest.then === 'function') {
+          child.manifest.then((manifest) => {
+            const updateChild = {
+              manifest,
+              isShow: child.isShow,
+            };
+            children.set(key, [updateChild, options]);
+            next();
+          });
+          return [child, options];
+        }
+      }
+
+      if (!child.isShow(state) && options.show) {
+        return [
+          child,
+          { ...options, show: false, unmount: true },
+        ];
+      }
+
+      if (child.isShow(state) && !options.show) {
+        return [
+          child,
+          { ...options, show: true, mount: true },
+        ];
+      }
+
+      return [child, options];
+    },
+  );
+
+  const createNext = next => children => state => compose(
+    children.update,
+    mount(state),
+    unmount(state),
+    prepareChildren(next, state),
+  )(children);
 
   var index = (observer) => {
     const children = createChilds();
@@ -72,18 +132,25 @@
     const next = compose(
       createStateManager(),
       debounce,
-      createNext,
+      createNext(() => next()),
     )(children);
 
     const observerResult = observer(next);
 
     const embla = (cb = () => {}) => {
       cb(observerResult);
-      next(void 0, true);
       children.clear();
     };
 
-    embla.child = (manifest, isShow, extraArgument) => next(void children.add([{ manifest, isShow, extraArgument }]));
+    embla.child = (manifest, isShow, extraArgument) => next(
+      void children.add([
+        {
+          manifest,
+          isShow,
+          extraArgument,
+        },
+      ]),
+    );
 
     return embla;
   };

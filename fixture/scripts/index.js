@@ -62,5 +62,18 @@ embla.child(
   hash => hash === 'home',
 );
 
+for (let index = 0; index < 10000; index++) {
+  embla.child(
+    {
+      mount: mount(mountingElement),
+      unmount: unmount(mountingElement),
+      default: () => {
+        console.log('wow');
+      },
+    },
+    hash => hash === void 0,
+  );
+}
+
 // Life cycle
 // CONDTIONAL -> default -> mount -> CONDTIONAL -> unmount -> CONDTIONAL -> default -> mount -> CONDTIONAL -> unmount
