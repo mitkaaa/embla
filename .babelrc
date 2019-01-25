@@ -1,10 +1,11 @@
 {
-  "presets": [["env", { "modules": false }]],
+
+  "presets": [["@babel/preset-env", { "modules": false }]],
   "env": {
     "test": {
       "retainLines": true,
       "sourceMaps": "inline",
-      "presets": [["env"]],
+      "presets": [["@babel/preset-env"]],
     },
   },
 }
