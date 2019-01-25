@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/mitkaaa/embla.svg?branch=master)](https://travis-ci.org/mitkaaa/embla)
+[![Build Status](https://travis-ci.org/mitkaaa/embla.svg?branch=master)](https://travis-ci.org/mitkaaa/embla) [![Coverage Status](https://coveralls.io/repos/github/mitkaaa/embla/badge.svg?branch=master)](https://coveralls.io/github/mitkaaa/embla?branch=master)
 
 ## Metaframework
 TODO: description
