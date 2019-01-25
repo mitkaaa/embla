@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/mitkaaa/embla.svg?branch=master)](https://travis-ci.org/mitkaaa/embla)
+
 ## Metaframework
 TODO: description
 
