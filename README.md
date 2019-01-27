@@ -1,3 +1,5 @@
+[![NPM Version](https://img.shields.io/npm/v/embla.svg?style=flat)](https://www.npmjs.com/package/embla)
+[![NPM Downloads](https://img.shields.io/npm/dm/embla.svg?style=flat)](https://npmcharts.com/compare/embla?minimal=true)
 [![Build Status](https://travis-ci.org/mitkaaa/embla.svg?branch=master)](https://travis-ci.org/mitkaaa/embla) [![Coverage Status](https://coveralls.io/repos/github/mitkaaa/embla/badge.svg?branch=master)](https://coveralls.io/github/mitkaaa/embla?branch=master)
 
 ## Metaframework
