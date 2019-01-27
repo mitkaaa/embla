@@ -1,4 +1,4 @@
-// const { uglify } = require('rollup-plugin-uglify');
+const { uglify } = require('rollup-plugin-uglify');
 const babel = require('rollup-plugin-babel');
 
 const basisConfig = require('./basis');
@@ -10,6 +10,6 @@ module.exports = {
   plugins: [
     ...plugins,
     babel({ exclude: 'node_modules/**' }),
-    // uglify(),
+    uglify(),
   ],
 };

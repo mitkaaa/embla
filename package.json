@@ -1,9 +1,13 @@
 {
   "name": "embla",
-  "version": "1.0.0",
-  "description": "metaframework",
+  "version": "0.0.0",
+  "description": "Meta Framework to manage your applications across frameworks",
+  "keywords": [
+    "metaframework",
+    "frameworks",
+    "micro frontends"
+  ],
   "main": "dist/index.js",
-  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.3.1",
@@ -13,7 +17,7 @@
     "cross-env": "^5.2.0",
     "eslint": "^5.10.0",
     "eslint-config-airbnb": "^17.1.0",
-    "eslint-plugin-import": "^2.14.0", 
+    "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
     "jest": "^23.6.0",
@@ -23,6 +27,7 @@
     "rollup-plugin-uglify": "^6.0.1"
   },
   "scripts": {
+    "prepublish": "npm run lint && npm run test && npm run build",
     "start": "cross-env NODE_ENV=development rollup -c ./build/rollup.config.js --watch",
     "build": "cross-env NODE_ENV=production rollup -c ./build/rollup.config.js",
     "lint": "eslint --ext .js,.jsx --quiet .",
@@ -34,7 +39,7 @@
     "type": "git",
     "url": "git+https://github.com/mitkaaa/embla.git"
   },
-  "author": "Dmitry Kuznetsov",
+  "author": "Dmitry Kuznetsov <i@aaea.ru>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/mitkaaa/embla/issues"
