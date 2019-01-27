@@ -1,6 +1,6 @@
 {
   "name": "embla",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Meta Framework to manage your applications across frameworks",
   "keywords": [
     "metaframework",
