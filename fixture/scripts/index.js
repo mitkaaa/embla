@@ -31,9 +31,9 @@ embla.child(
       const div = document.createElement('div');
       div.innerHTML = `<h1>About</h1> hash: #${path}`;
       return div;
-    },
+    }
   },
-  hash => hash === 'about',
+  hash => hash === 'about'
 );
 
 embla.child(
@@ -44,9 +44,9 @@ embla.child(
       const div = document.createElement('div');
       div.innerHTML = '<a href="#home">Home</a> | <a href="#about">About</a>';
       return div;
-    },
+    }
   },
-  () => true,
+  () => true
 );
 
 embla.child(
@@ -57,7 +57,7 @@ embla.child(
       const div = document.createElement('div');
       div.innerHTML = `<h1>Home</h1> hash: #${path}`;
       return div;
-    },
+    }
   },
-  hash => hash === 'home',
+  hash => hash === 'home'
 );
